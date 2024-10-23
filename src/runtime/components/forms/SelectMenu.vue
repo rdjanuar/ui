@@ -376,7 +376,13 @@ export default defineComponent({
       }
 
       if (props.valueAttribute) {
-        return options.value.find(option => option[props.valueAttribute] === props.modelValue)
+        const findOption = options.value.find(option => option[props.valueAttribute] === props.modelValue)
+        if (!findOption) {
+          return {
+            [props.optionAttribute]: props.modelValue
+          }
+        }
+        return findOption
       }
       return options.value.find(option => option === props.modelValue)
     })
